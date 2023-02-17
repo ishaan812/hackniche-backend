@@ -9,33 +9,32 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func CreateTeam(w http.ResponseWriter, r *http.Request) {
+func CreateTeamsParticipant(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
-	var team database.Team
-	json.NewDecoder(r.Body).Decode(&team)
-	err := dbconn.Create(&team).Error
+	var participant database.TeamsParticipant
+	json.NewDecoder(r.Body).Decode(&participant)
+	err := dbconn.Create(&participant)
 	if err != nil {
-		json.NewEncoder(w).Encode(team)
-		json.NewEncoder(w).Encode(err)
+		json.NewEncoder(w).Encode(err.Error)
 	} else {
-		json.NewEncoder(w).Encode(&team)
+		json.NewEncoder(w).Encode("TeamsParticipant Created")
 	}
 }
 
-func GetAllTeams(w http.ResponseWriter, r *http.Request) {
+func GetAllTeamsParticipants(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
-	var team []database.Team
+	var participant []database.TeamsParticipant
 	// year := r.URL.Query().Get("year")
 	// division := r.URL.Query().Get("division")
 	// batch := r.URL.Query().Get("batch")
 	// department := r.URL.Query().Get("department")
 	// if year == "" && division == "" && batch == "" && department == "" {
-	// 	dbconn.Find(&team)
-	// 	json.NewEncoder(w).Encode(&team)
+	// 	dbconn.Find(&participant)
+	// 	json.NewEncoder(w).Encode(&participant)
 	// } else {
 	// 	querystring := ""
 	// 	if year != "" {
@@ -60,66 +59,52 @@ func GetAllTeams(w http.ResponseWriter, r *http.Request) {
 	// 		querystring = querystring + "department = '" + department + "'"
 	// 	}
 	// fmt.Println(querystring)
-	dbconn.Preload("Leader").Find(&team)
-	json.NewEncoder(w).Encode(&team)
+	dbconn.Find(&participant)
+	json.NewEncoder(w).Encode(&participant)
 	// }
 }
 
-func GetTeamByID(w http.ResponseWriter, r *http.Request) {
+func GetTeamsParticipantByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	var team database.Team
-	err := dbconn.Where("id = ?", params["id"]).First(&team).Error
-	fmt.Println(team)
+	var participant database.TeamsParticipant
+	err := dbconn.Where("id = ?", params["id"]).First(&participant).Error
+	fmt.Println(participant)
 	if err != nil {
 		json.NewEncoder(w).Encode("Invalid ID")
 	} else {
-		json.NewEncoder(w).Encode(&team)
+		json.NewEncoder(w).Encode(&participant)
 	}
 }
 
-func DeleteTeam(w http.ResponseWriter, r *http.Request) {
+func DeleteTeamsParticipant(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
-	var team database.Team
+	var participant database.TeamsParticipant
 	params := mux.Vars(r)
-	err := dbconn.Where("id = ?", params["id"]).First(&team).Error
+	err := dbconn.Where("id = ?", params["id"]).First(&participant).Error
 	if err != nil {
 		json.NewEncoder(w).Encode("Invalid ID")
 	} else {
-		dbconn.Delete(&team)
-		json.NewEncoder(w).Encode("Team Deleted")
+		dbconn.Delete(&participant)
+		json.NewEncoder(w).Encode("TeamsParticipant Deleted")
 	}
 }
 
-func UpdateTeam(w http.ResponseWriter, r *http.Request) {
+func UpdateTeamsParticipantTeam(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	var team database.Team
-	err := dbconn.Where("id = ?", params["id"]).First(&team).Error
+	var participant database.TeamsParticipant
+	err := dbconn.Where("id = ?", params["id"]).First(&participant).Error
 	if err != nil {
 		json.NewEncoder(w).Encode("Invalid ID")
 	}
-	json.NewDecoder(r.Body).Decode(&team)
-	dbconn.Save(&team)
-	json.NewEncoder(w).Encode(&team)
+	json.NewDecoder(r.Body).Decode(&participant)
+	dbconn.Save(&participant)
+	json.NewEncoder(w).Encode(&participant)
 }
-
-// func CreateTeam(w http.ResponseWriter, r *http.Request){
-// 	w.Header().Set("Access-Control-Allow-Origin", "*")
-// 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-// 	w.Header().Set("Content-Type", "application/json")
-// 	var team database.Team
-// 	json.NewDecoder(r.Body).Decode(&team)
-// 	err := dbconn.Create(&team)
-// 	if err != nil {
-// 		json.NewEncoder(w).Encode(err.Error)
-// 	} else {
-// 		json.NewEncoder(w).Encode("Team Created")
-// 	}
-// }

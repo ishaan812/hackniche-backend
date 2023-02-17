@@ -67,15 +67,24 @@ type Participant struct {
 	Teams            []*Team        `gorm:"many2many:participant_team;foreignKey:ID;joinForeignKey:ParticipantID;" json:"teams"`
 }
 type Team struct {
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	ID        uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
-	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
-	Name      string         `json:"team_name"`
-	LeaderID  uuid.UUID      `json:"team_leader_id"`
-	Member1ID uuid.UUID      `json:"member1_id"`
-	Member2ID uuid.UUID      `json:"member2_id"`
-	Member3ID uuid.UUID      `json:"member3_id"`
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
+	ID           uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
+	DeletedAt    gorm.DeletedAt `gorm:"index" json:"-"`
+	Name         string         `json:"team_name"`
+	Participants []*Participant `gorm:"many2many:participant_team;foreignKey:ID;joinForeignKey:TeamID;" json:"participants"`
+}
+
+type TeamsParticipant struct {
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
+	ID             uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()" json:"id"`
+	DeletedAt      gorm.DeletedAt `gorm:"index" json:"-"`
+	ParticipantID  uuid.UUID      `json:"participant_id"`
+	Participant    Participant    `json:"participant" gorm:"foreignKey:ParticipantID"`
+	TeamID         uuid.UUID      `json:"team_id"`
+	Team           Team           `json:"team" gorm:"foreignKey:TeamID"`
+	TeamLeader     bool           `json:"team_leader"`
 }
 
 type HackathonTeams struct {
