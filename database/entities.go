@@ -71,9 +71,7 @@ type Team struct {
 	UpdatedAt time.Time
 	ID        uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
-	Image     string         `json:"image"`
-	Name      string         `json:"name"`
-	TeamCode  string         `json:"team_code"`
+	Name      string         `json:"team_name"`
 	LeaderID  uuid.UUID      `json:"team_leader_id"`
 	Member1ID uuid.UUID      `json:"member1_id"`
 	Member2ID uuid.UUID      `json:"member2_id"`
