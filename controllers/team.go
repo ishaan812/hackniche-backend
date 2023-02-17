@@ -109,3 +109,16 @@ func UpdateTeam(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(&team)
 }
 
+// func CreateTeam(w http.ResponseWriter, r *http.Request){
+// 	w.Header().Set("Access-Control-Allow-Origin", "*")
+// 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+// 	w.Header().Set("Content-Type", "application/json")
+// 	var team database.Team
+// 	json.NewDecoder(r.Body).Decode(&team)
+// 	err := dbconn.Create(&team)
+// 	if err != nil {
+// 		json.NewEncoder(w).Encode(err.Error)
+// 	} else {
+// 		json.NewEncoder(w).Encode("Team Created")
+// 	}
+// }

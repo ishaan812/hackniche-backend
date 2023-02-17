@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"service/database"
+
+	"github.com/gorilla/mux"
 )
 
 func AddTeamToHackathon(w http.ResponseWriter, r *http.Request) {
@@ -61,18 +63,17 @@ func GetAllHackathonTeams(w http.ResponseWriter, r *http.Request) {
 	// }
 }
 
-func GetHackathonTeamsByID(w http.ResponseWriter, r *http.Request) {
+func GetTeamsByHackathon(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	var hackathon database.HackathonTeams
-	err := dbconn.Where("id = ?", params["id"]).First(&hackathon).Error
-	fmt.Println(hackathon)
+	var hackathonteams []database.HackathonTeams
+	err := dbconn.Where("hackathon_id = ?", params["id"]).Find(&hackathonteams).Error
 	if err != nil {
 		json.NewEncoder(w).Encode("Invalid ID")
 	} else {
-		json.NewEncoder(w).Encode(&hackathon)
+		json.NewEncoder(w).Encode(&hackathonteams)
 	}
 }
 
@@ -105,4 +106,3 @@ func UpdateHackathonTeams(w http.ResponseWriter, r *http.Request) {
 	dbconn.Save(&hackathon)
 	json.NewEncoder(w).Encode(&hackathon)
 }
-

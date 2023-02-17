@@ -35,7 +35,6 @@ type Hackathon struct {
 	Organizer   Organizer      `json:"organizer" gorm:"foreignKey:OrganizerID"`
 	Description string         `json:"description"`
 	Teams       []*Team        `gorm:"many2many:hackathon_team;foreignKey:ID;joinForeignKey:HackathonID;" json:"teams"`
-	// Lectures    []*Lecture     `gorm:"many2many:student_lectures;foreignKey:ID;joinForeignKey:StudentID;" json:"lectures"`
 }
 
 type Participant struct {
@@ -56,6 +55,7 @@ type Participant struct {
 	Email            string         `json:"email"`
 	Username         string         `json:"username"`
 	Password         string         `json:"password"`
+	Teams            []*Team        `gorm:"many2many:participant_team;foreignKey:ID;joinForeignKey:ParticipantID;" json:"teams"`
 }
 type Team struct {
 	CreatedAt time.Time
