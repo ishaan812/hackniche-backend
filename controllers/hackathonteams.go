@@ -69,7 +69,7 @@ func GetTeamsByHackathon(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	var hackathonteams []database.HackathonTeams
-	err := dbconn.Where("hackathon_id = ?", params["id"]).Find(&hackathonteams).Error
+	err := dbconn.Preload("Team").Preload("Hackathon").Where("hackathon_id = ?", params["id"]).Find(&hackathonteams).Error
 	if err != nil {
 		json.NewEncoder(w).Encode("Invalid ID")
 	} else {
