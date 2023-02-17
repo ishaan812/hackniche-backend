@@ -1,0 +1,7 @@
+﻿name,location,offline,criteria,deadline,min_team,max_team,start_date,end_date,organizer_id,description,domains,prize_pool,eligibility
+Hackniche,Djsanghvi,1,,12-2-2023,2,4,15-2-2023,16-2-2023,dad358e3-340f-43ce-b468-3b4688143f25,Best event,"{""web-app"",""aiml""}",10000,18
+CodeCrush,Thadomal,1,,12-3-2023,2,4,15-3-2023,16-2-2023,dad358e3-340f-43ce-b468-3b4688143f25,Best event,"{""web-app"",""aiml"",""blockchain""}",100000,18
+HackingHive,Bhagubai,1,,15-4-2023,2,4,17-4-2023,16-2-2023,dad358e3-340f-43ce-b468-3b4688143f25,Best event,"{""web-app"",""aiml"",""ML""}",40000,18
+HackHorde,Mithibai,1,,19-4-2023,2,4,21-4-2023,16-2-2023,dad358e3-340f-43ce-b468-3b4688143f25,Best event,"{""web-app"",""aiml""}",30000,18
+DevDen,SPIT,1,,12-2-2023,2,4,21-5-2023,23-5-2023,dad358e3-340f-43ce-b468-3b4688143f25,Best event,"{""web-app"",""aiml""}",50000,18
+HackVibes,Thakur,1,,12-2-2023,23,4,15-2-2023,24-5-2023,dad358e3-340f-43ce-b468-3b4688143f25,Best event,"{""web-app"",""aiml""}",20000,18
