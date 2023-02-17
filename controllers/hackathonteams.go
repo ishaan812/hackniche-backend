@@ -14,6 +14,7 @@ func AddTeamToHackathon(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var HackathonTeams database.HackathonTeams
 	json.NewDecoder(r.Body).Decode(&HackathonTeams)
+	HackathonTeams.Registered = true
 	err := dbconn.Create(&HackathonTeams)
 	if err != nil {
 		json.NewEncoder(w).Encode(err.Error)
