@@ -29,7 +29,11 @@ type Hackathon struct {
 	Deadline    string         `json:"deadline"`
 	MinTeam     int            `json:"min_team"`
 	MaxTeam     int            `json:"max_team"`
-	Information string         `json:"information"`
+	StartDate   string         `json:"start_date"`
+	EndDate     string         `json:"end_date"`
+	OrganizerID string         `json:"organizer_id"`
+	Organizer   Organizer      `json:"organizer" gorm:"foreignKey:OrganizerID"`
+	Description string         `json:"description"`
 }
 
 type Participant struct {
@@ -51,8 +55,8 @@ type Participant struct {
 }
 type Team struct {
 	Name      string `json:"name"`
-	LeaderID  string `json:"team_leader_id"`
-	Member1ID string `json:"member1_id"`
-	Member2ID string `json:"member2_id"`
-	Member3ID string `json:"member3_id"`
+	LeaderID  uuid.UUID `json:"team_leader_id"`
+	Member1ID uuid.UUID `json:"member1_id"`
+	Member2ID uuid.UUID `json:"member2_id"`
+	Member3ID uuid.UUID `json:"member3_id"`
 }
