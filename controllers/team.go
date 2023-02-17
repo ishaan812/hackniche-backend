@@ -108,3 +108,4 @@ func UpdateTeam(w http.ResponseWriter, r *http.Request) {
 	dbconn.Save(&team)
 	json.NewEncoder(w).Encode(&team)
 }
+
