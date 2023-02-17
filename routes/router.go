@@ -22,6 +22,11 @@ func InitializeRouter() {
 	r.HandleFunc("/logout", controllers.Logout).Methods("GET")
 	r.HandleFunc("/refresh", controllers.Refresh).Methods("GET")
 
+	r.HandleFunc("/registerParticipant", controllers.RegisterParticipation).Methods("POST", "OPTIONS")
+	r.HandleFunc("/loginParticipant", controllers.LoginParticipation).Methods("POST", "OPTIONS")
+	r.HandleFunc("/logoutParticipant", controllers.LogoutParticipation).Methods("GET")
+	r.HandleFunc("/refreshParticipant", controllers.RefreshParticipation).Methods("GET")
+
 	r.HandleFunc("/participant", controllers.CreateParticipant).Methods("POST", "OPTIONS")
 	r.HandleFunc("/getAllParticipants", controllers.GetAllParticipants).Methods("GET")
 	r.HandleFunc("/participant/{id}", controllers.GetParticipantByID).Methods("GET")
