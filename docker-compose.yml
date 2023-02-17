@@ -14,7 +14,7 @@ services:
       - learning
   
   weber:
-    container_name: weber
+    container_name: hackniche-backend
     build:
       context: .
       dockerfile: Dockerfile
