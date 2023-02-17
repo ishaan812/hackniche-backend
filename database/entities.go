@@ -7,6 +7,16 @@ import (
 	"gorm.io/gorm"
 )
 
+type Organizer struct {
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
+	ID               uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
+	DeletedAt        gorm.DeletedAt `gorm:"index" json:"-"`
+	Name             string         `json:"name"`
+	Email            string         `json:"email"`
+	Password         string         `json:"password"`
+	OrganizationName string         `json:"organization_name"`
+}
 type Hackathon struct {
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
@@ -39,14 +49,10 @@ type Participant struct {
 	Type             string         `json:"type"`
 	Email            string         `json:"email"`
 }
-
-type Organizer struct {
-	CreatedAt        time.Time
-	UpdatedAt        time.Time
-	ID               uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
-	DeletedAt        gorm.DeletedAt `gorm:"index" json:"-"`
-	Name             string         `json:"name"`
-	Email            string         `json:"email"`
-	Password         string         `json:"password"`
-	OrganizationName string         `json:"organization_name"`
+type Team struct {
+	Name      string `json:"name"`
+	LeaderID  string `json:"team_leader_id"`
+	Member1ID string `json:"member1_id"`
+	Member2ID string `json:"member2_id"`
+	Member3ID string `json:"member3_id"`
 }
