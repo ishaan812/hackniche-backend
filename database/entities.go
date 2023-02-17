@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/gofrs/uuid"
+	"github.com/lib/pq"
 	"gorm.io/gorm"
 )
 
@@ -35,6 +36,9 @@ type Hackathon struct {
 	Organizer   Organizer      `json:"organizer" gorm:"foreignKey:OrganizerID"`
 	Description string         `json:"description"`
 	Teams       []*Team        `gorm:"many2many:hackathon_team;foreignKey:ID;joinForeignKey:HackathonID;" json:"teams"`
+	Domains     pq.StringArray `gorm:"type:varchar(255)[]" json:"domains"`
+	PrizePool   int            `json:"prize_pool"`
+	Eligibility int            `json:"eligibility"`
 }
 
 type Participant struct {
@@ -43,6 +47,7 @@ type Participant struct {
 	ID               uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
 	DeletedAt        gorm.DeletedAt `gorm:"index" json:"-"`
 	Name             string         `json:"name"`
+	Age              int            `json:"age"`
 	College          string         `json:"college"`
 	YearOfGraduation string         `json:"year_of_graduation"`
 	Resume           string         `json:"resume"`
@@ -79,4 +84,5 @@ type HackathonTeams struct {
 	Team        Team           `json:"team" gorm:"foreignKey:TeamID"`
 	HackathonID uuid.UUID      `json:"hackathon_id"`
 	Hackathon   Hackathon      `json:"hackathon" gorm:"foreignKey:HackathonID"`
+	Accepted    bool           `json:"accepted"`
 }

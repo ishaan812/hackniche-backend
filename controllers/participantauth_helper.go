@@ -12,37 +12,37 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func LoginUserParticipation(Organizer *database.Organizer) (*database.Organizer, error) {
-	var organizer database.Organizer
-	err := dbconn.Where("email = ?", Organizer.Email).First(&organizer).Error
+func LoginUserParticipation(Participant *database.Participant) (*database.Participant, error) {
+	var organizer database.Participant
+	err := dbconn.Where("email = ?", Participant.Email).First(&organizer).Error
 	if err != nil {
 		fmt.Println("ERROR: sapid does not exist")
 		return nil, err
 	}
-	err = bcrypt.CompareHashAndPassword([]byte(organizer.Password), []byte(Organizer.Password))
+	err = bcrypt.CompareHashAndPassword([]byte(organizer.Password), []byte(Participant.Password))
 	if err != nil {
 		fmt.Println("ERROR: Wrong Password Entered")
 		return nil, err
 	}
-	fmt.Println("INFO: ", Organizer.Email, " logged in")
-	Organizer = &organizer
+	fmt.Println("INFO: ", Participant.Email, " logged in")
+	Participant = &organizer
 	return &organizer, nil
 }
 
-func RegisterUserParticipation(Organizer *database.Organizer) error {
-	err := dbconn.Where("email = ?", Organizer.Email).First(&Organizer).Error
+func RegisterUserParticipation(Participant *database.Participant) error {
+	err := dbconn.Where("email = ?", Participant.Email).First(&Participant).Error
 	if err != nil {
-		bytes, err := bcrypt.GenerateFromPassword([]byte(Organizer.Password), 14)
+		bytes, err := bcrypt.GenerateFromPassword([]byte(Participant.Password), 14)
 		if err != nil {
 			return err
 		} else {
-			Organizer.Password = string(bytes)
+			Participant.Password = string(bytes)
 		}
-		dbconn.Create(&Organizer)
-		fmt.Println("INFO: New Organizer ", Organizer.Email, " has been registered")
+		dbconn.Create(&Participant)
+		fmt.Println("INFO: New Participant ", Participant.Email, " has been registered")
 		return nil
 	}
-	fmt.Println("ERROR: Organizer ", Organizer.Email, " already exists")
+	fmt.Println("ERROR: Participant ", Participant.Email, " already exists")
 	return errors.New("user already exists")
 }
 
@@ -52,11 +52,11 @@ func LogoutUserParticipation(c *http.Cookie) error {
 	return nil
 }
 
-func CreateJWTParticipation(Organizer *database.Organizer) (*http.Cookie, error) {
+func CreateJWTParticipation(Participant *database.Participant) (*http.Cookie, error) {
 	expirationTime := time.Now().Add(tokenValidityDuration)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"name":      Organizer.Name,
-		"email":     Organizer.Email,
+		"name":      Participant.Name,
+		"email":     Participant.Email,
 		"expiresat": expirationTime,
 	})
 	tokenString, err := token.SignedString([]byte(os.Getenv("JWT_SECRET_KEY")))
@@ -69,7 +69,7 @@ func CreateJWTParticipation(Organizer *database.Organizer) (*http.Cookie, error)
 		Value:   tokenString,
 		Expires: expirationTime,
 	}
-	fmt.Println("INFO: JWT of ", Organizer.Email, " generated with expiration time ", expirationTime)
+	fmt.Println("INFO: JWT of ", Participant.Email, " generated with expiration time ", expirationTime)
 	return JWTCookie, nil
 }
 

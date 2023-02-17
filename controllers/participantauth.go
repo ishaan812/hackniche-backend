@@ -13,14 +13,14 @@ func LoginParticipation(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
-	var Organizer database.Organizer
-	json.NewDecoder(r.Body).Decode(&Organizer)
-	faculty, err := LoginUserParticipation(&Organizer)
-	fmt.Println(Organizer)
+	var Participant database.Participant
+	json.NewDecoder(r.Body).Decode(&Participant)
+	faculty, err := LoginUserParticipation(&Participant)
+	fmt.Println(Participant)
 	if err != nil {
 		json.NewEncoder(w).Encode("AuthError")
 	} else {
-		JWTCookie, err := CreateJWT(&Organizer)
+		JWTCookie, err := CreateJWTParticipation(&Participant)
 		if err != nil {
 			fmt.Println("Error while creating JWT.")
 			json.NewEncoder(w).Encode("JWTError")
@@ -35,9 +35,9 @@ func RegisterParticipation(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
-	var Organizer database.Organizer
-	json.NewDecoder(r.Body).Decode(&Organizer)
-	err := RegisterUserParticipation(&Organizer)
+	var Participant database.Participant
+	json.NewDecoder(r.Body).Decode(&Participant)
+	err := RegisterUserParticipation(&Participant)
 	if err != nil {
 		fmt.Println("Error while registering user")
 		json.NewEncoder(w).Encode("RegisterError")
@@ -58,7 +58,7 @@ func RefreshParticipation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	jwtKey := os.Getenv("JWT_SECRET_KEY")
-	claims, err := ValidateJWT(c, jwtKey)
+	claims, err := ValidateJWTParticipation(c, jwtKey)
 	fmt.Println(claims)
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
@@ -84,6 +84,6 @@ func LogoutParticipation(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	LogoutUser(c)
+	LogoutUserParticipation(c)
 	http.SetCookie(w, c)
 }
