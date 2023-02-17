@@ -90,7 +90,7 @@ type HackathonTeams struct {
 	HackathonID uuid.UUID      `json:"hackathon_id"`
 	Hackathon   Hackathon      `json:"hackathon" gorm:"foreignKey:HackathonID"`
 	Accepted    bool           `json:"accepted"`
-	Messages    []*Message     `json:"messages"`
+	// Messages    []*Message     `json:"messages"`
 }
 
 type Message struct {
