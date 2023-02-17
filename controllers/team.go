@@ -19,7 +19,7 @@ func CreateTeam(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		json.NewEncoder(w).Encode(err.Error)
 	} else {
-		json.NewEncoder(w).Encode(team)
+		json.NewEncoder(w).Encode(&team)
 	}
 }
 

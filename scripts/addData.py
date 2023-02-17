@@ -7,9 +7,9 @@ from csv import DictReader
 def get_db_conn():
     conn = psycopg2.connect(
         host="localhost",
-        database="hacknicheDB",
+        database="test",
         user="postgres", # Replace postgres user name
-        password="bhavyagor123") # Postgres password
+        password="Allhailbruno18") # Postgres password
     return conn
 
 def cleanup_all_tables(db_conn, table_list):
