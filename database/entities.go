@@ -34,6 +34,8 @@ type Hackathon struct {
 	OrganizerID string         `json:"organizer_id"`
 	Organizer   Organizer      `json:"organizer" gorm:"foreignKey:OrganizerID"`
 	Description string         `json:"description"`
+	Teams       []*Team        `gorm:"many2many:hackathon_team;foreignKey:ID;joinForeignKey:HackathonID;" json:"teams"`
+	// Lectures    []*Lecture     `gorm:"many2many:student_lectures;foreignKey:ID;joinForeignKey:StudentID;" json:"lectures"`
 }
 
 type Participant struct {
@@ -47,16 +49,34 @@ type Participant struct {
 	Resume           string         `json:"resume"`
 	Skills           string         `json:"skills"`
 	Experience       string         `json:"experience"`
-	Qualfications    string         `json:"qualfications"`
+	Qualfications    string         `json:"qualifications"`
 	MobileNumber     string         `json:"mobile_number"`
 	Gender           string         `json:"gender"`
 	Type             string         `json:"type"`
 	Email            string         `json:"email"`
+	Username         string         `json:"username"`
+	Password         string         `json:"password"`
 }
 type Team struct {
-	Name      string `json:"name"`
-	LeaderID  uuid.UUID `json:"team_leader_id"`
-	Member1ID uuid.UUID `json:"member1_id"`
-	Member2ID uuid.UUID `json:"member2_id"`
-	Member3ID uuid.UUID `json:"member3_id"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	ID        uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
+	Name      string         `json:"name"`
+	TeamCode  string         `json:"team_code"`
+	LeaderID  uuid.UUID      `json:"team_leader_id"`
+	Member1ID uuid.UUID      `json:"member1_id"`
+	Member2ID uuid.UUID      `json:"member2_id"`
+	Member3ID uuid.UUID      `json:"member3_id"`
+}
+
+type HackathonTeams struct {
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	ID          uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
+	DeletedAt   gorm.DeletedAt `gorm:"index" json:"-"`
+	TeamID      uuid.UUID      `json:"team_id"`
+	Team        Team           `json:"team" gorm:"foreignKey:TeamID"`
+	HackathonID uuid.UUID      `json:"hackathon_id"`
+	Hackathon   Hackathon      `json:"hackathon" gorm:"foreignKey:HackathonID"`
 }

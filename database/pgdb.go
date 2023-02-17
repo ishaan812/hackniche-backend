@@ -14,10 +14,10 @@ func InitialMigration(DNS string) *gorm.DB {
 	if err != nil {
 		panic("Failed to connect to database")
 	}
-	// if err := DB.SetupJoinTable(&Student{}, "Lectures", &StudentLecture{}); err != nil {
-	// 	println(err.Error())
-	// 	panic("Failed to setup join table: StudentLecture")
-	// }
+	if err := DB.SetupJoinTable(&Hackathon{}, "Teams", &HackathonTeams{}); err != nil {
+		println(err.Error())
+		panic("Failed to setup join table: HackathonTeams")
+	}
 	DB.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
 	DB.AutoMigrate(Organizer{}, Hackathon{}, Participant{}, Team{})
 	return DB
