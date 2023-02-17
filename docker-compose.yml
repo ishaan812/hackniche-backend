@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    env_file:
+      - .env
+      # Optional: Give a name to the database, otherwise
+      # use the default value POSTGRES_USER as a database name (user in this case.)
+    ports:
+      - "5432:5432"
+    networks:
+      - learning
+  
+  weber:
+    container_name: weber
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - 80:9000
+    depends_on:
+      - "postgres"
+    deploy:
+      restart_policy:
+        condition: on-failure
+    networks:
+      - learning
+
+networks:
+  learning:
+    driver: bridge
