@@ -28,7 +28,7 @@ type EvalReq struct {
 	Skills           pq.StringArray `json:"skills"`
 	Experience       float64            `json:"experience"`
 	Qualifications   pq.StringArray `json:"qualifications"`
-	LeetcodeRank     float64           `json:"leetcode_username"`
+	LeetcodeRank     float64           `json:"leetcode_rank"`
 	GithubUsername   string         `json:"github_username"`
 }
 

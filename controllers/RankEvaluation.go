@@ -3,7 +3,6 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"time"
 )
@@ -118,69 +117,14 @@ func GithubLast30Days(username string) int {
 	return contributions
 }
 
-func LeetcodeLast30Days(username string) int {
-	url := fmt.Sprintf("https://leetcode.com/api/submissions/%s", username)
-
-	client := &http.Client{}
-	req, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		panic(err)
-	}
-
-	// req.Header.Set("cookie", cookie)
-
-	resp, err := client.Do(req)
-	if err != nil {
-		panic(err)
-	}
-
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
-	}
-	var questions Questions
-
-	err = json.Unmarshal(body, &questions)
-	if err != nil {
-		panic(err)
-	}
-
-	solved := make(map[string]bool)
-	// now := time.Now()
-
-	count := 0
-	for _, pair := range questions.StatStatusPairs {
-		if pair.Status == "Accepted" {
-			solved[pair.Stat.QuestionTitleSlug] = true
-			count++
-		}
-	}
-
-	// for _, pair := range questions.StatStatusPairs {
-	// 	if pair.Status == "Accepted" && solved[pair.Stat.QuestionTitleSlug] {
-	// 		submissionTime := time.Unix(pair.Timestamp/1000, 0)
-	// 		daysSinceSubmission := now.Sub(submissionTime).Hours() / 24
-	// 		if daysSinceSubmission <= 30 {
-	// 			count++
-	// 			solved[pair.Stat.QuestionTitleSlug] = false
-	// 		}
-	// 	}
-	// }
-
-	fmt.Println("Problems solved in last 30 days:", count)
-	return count
-}
-
 func ResumeScore(EvalReq EvalReq) float64 {
 	score := float64(0)
-	var HackathonDomains map[string]int
+	m := make(map[string]interface{})
 	for i := 0; i < len(EvalReq.HackathonDomains); i++ {
-		HackathonDomains[EvalReq.HackathonDomains[i]] = 1
+		m[EvalReq.HackathonDomains[i]] = 1
 	}
 	for i := 0; i < len(EvalReq.Skills); i++ {
-		if HackathonDomains[EvalReq.Skills[i]] == 1 {
+		if m[EvalReq.Skills[i]] == 1 {
 			score += 1
 		}
 	}
@@ -197,7 +141,7 @@ func Evaluate(EvalRequest EvalReq) EvalRes {
 	ResumeScore := ResumeScore(EvalRequest)
 	var EvalResult EvalRes
 	EvalResult.Score = GitScore * (1 / LeetcodeRank) * ResumeScore
-
+	fmt.Println( GitScore , (1 / LeetcodeRank) , ResumeScore)
 	// Get a list of the user's repositories
 
 	return EvalResult
