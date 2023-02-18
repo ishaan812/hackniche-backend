@@ -26,9 +26,9 @@ type AddTeamToHackathonReq struct {
 type EvalReq struct {
 	HackathonDomains pq.StringArray `json:"hackathon_domains"`
 	Skills           pq.StringArray `json:"skills"`
-	Experience       int            `json:"experience"`
+	Experience       float64            `json:"experience"`
 	Qualifications   pq.StringArray `json:"qualifications"`
-	LeetcodeRank     uint           `json:"leetcode_username"`
+	LeetcodeRank     float64           `json:"leetcode_username"`
 	GithubUsername   string         `json:"github_username"`
 }
 

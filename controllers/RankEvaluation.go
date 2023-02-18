@@ -173,18 +173,30 @@ func LeetcodeLast30Days(username string) int {
 	return count
 }
 
-// func ResumeScore(url string) int {
+func ResumeScore(EvalReq EvalReq) float64 {
+	score := float64(0)
+	var HackathonDomains map[string]int
+	for i := 0; i < len(EvalReq.HackathonDomains); i++ {
+		HackathonDomains[EvalReq.HackathonDomains[i]] = 1
+	}
+	for i := 0; i < len(EvalReq.Skills); i++ {
+		if HackathonDomains[EvalReq.Skills[i]] == 1 {
+			score += 1
+		}
+	}
+	score += EvalReq.Experience
 
-// 	return 0
-// }
+	score += float64(len(EvalReq.Qualifications))
+
+	return score
+}
 
 func Evaluate(EvalRequest EvalReq) EvalRes {
-	// Replace with your GitHub username and access token
-	// GitScore := GithubLast30Days(EvalRequest.GithubUsername)
-	// LeetcodeRank := EvalRequest.LeetcodeRank
-	// ResumeScore := ResumeScore(EvalRequest.ResumeURL)
+	GitScore := float64(GithubLast30Days(EvalRequest.GithubUsername))
+	LeetcodeRank := EvalRequest.LeetcodeRank
+	ResumeScore := ResumeScore(EvalRequest)
 	var EvalResult EvalRes
-	// EvalRes.Score = GitScore * (1 / LeetcodeRank) * ResumeScore
+	EvalResult.Score = GitScore * (1 / LeetcodeRank) * ResumeScore
 
 	// Get a list of the user's repositories
 

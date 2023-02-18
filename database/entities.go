@@ -117,4 +117,3 @@ type Announcement struct {
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
 	Content   string         `json:"content"`
 }
-
