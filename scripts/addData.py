@@ -7,7 +7,7 @@ from csv import DictReader
 def get_db_conn():
     conn = psycopg2.connect(
         host="localhost",
-        database="test",
+        database="test1",
         user="postgres", # Replace postgres user name
         password="Allhailbruno18") # Postgres password
     return conn

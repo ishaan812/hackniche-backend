@@ -1,7 +1,7 @@
 ﻿name,location,offline,criteria,deadline,min_team,max_team,start_date,end_date,organizer_id,description,domains,prize_pool,eligibility
-Hackniche,Djsanghvi,1,,12-2-2023,2,4,15-2-2023,16-2-2023,12651109-d009-4d09-8eed-77dc49e7754b,Best event,"{""web-app"",""aiml""}",10000,18
-CodeCrush,Thadomal,1,,12-3-2023,2,4,15-3-2023,16-2-2023,12651109-d009-4d09-8eed-77dc49e7754b,Best event,"{""web-app"",""aiml"",""blockchain""}",100000,18
-HackingHive,Bhagubai,1,,15-4-2023,2,4,17-4-2023,16-2-2023,12651109-d009-4d09-8eed-77dc49e7754b,Best event,"{""web-app"",""aiml"",""ML""}",40000,18
-HackHorde,Mithibai,1,,19-4-2023,2,4,21-4-2023,16-2-2023,12651109-d009-4d09-8eed-77dc49e7754b,Best event,"{""web-app"",""aiml""}",30000,18
-DevDen,SPIT,1,,12-2-2023,2,4,21-5-2023,23-5-2023,12651109-d009-4d09-8eed-77dc49e7754b,Best event,"{""web-app"",""aiml""}",50000,18
-HackVibes,Thakur,1,,12-2-2023,23,4,15-2-2023,24-5-2023,12651109-d009-4d09-8eed-77dc49e7754b,Best event,"{""web-app"",""aiml""}",20000,18
+Hackniche,Djsanghvi,1,,12-2-2023,2,4,15-2-2023,16-2-2023,19574c5c-ba7a-4e29-a099-e32a7dbee111,Best event,"{""web-app"",""aiml""}",10000,18
+CodeCrush,Thadomal,1,,12-3-2023,2,4,15-3-2023,16-2-2023,19574c5c-ba7a-4e29-a099-e32a7dbee111,Best event,"{""web-app"",""aiml"",""blockchain""}",100000,18
+HackingHive,Bhagubai,1,,15-4-2023,2,4,17-4-2023,16-2-2023,19574c5c-ba7a-4e29-a099-e32a7dbee111,Best event,"{""web-app"",""aiml"",""ML""}",40000,18
+HackHorde,Mithibai,1,,19-4-2023,2,4,21-4-2023,16-2-2023,19574c5c-ba7a-4e29-a099-e32a7dbee111,Best event,"{""web-app"",""aiml""}",30000,18
+DevDen,SPIT,1,,12-2-2023,2,4,21-5-2023,23-5-2023,19574c5c-ba7a-4e29-a099-e32a7dbee111,Best event,"{""web-app"",""aiml""}",50000,18
+HackVibes,Thakur,1,,12-2-2023,23,4,15-2-2023,24-5-2023,19574c5c-ba7a-4e29-a099-e32a7dbee111,Best event,"{""web-app"",""aiml""}",20000,18
