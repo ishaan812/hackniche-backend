@@ -140,7 +140,7 @@ func Evaluate(EvalRequest EvalReq) EvalRes {
 	LeetcodeRank := EvalRequest.LeetcodeRank
 	ResumeScore := ResumeScore(EvalRequest)
 	var EvalResult EvalRes
-	EvalResult.Score = GitScore * (1 / LeetcodeRank) * ResumeScore
+	EvalResult.Score = GitScore * (1 / LeetcodeRank) * ResumeScore *1000
 	fmt.Println( GitScore , (1 / LeetcodeRank) , ResumeScore)
 	// Get a list of the user's repositories
 

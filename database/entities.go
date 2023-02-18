@@ -100,6 +100,7 @@ type HackathonTeams struct {
 	Hackathon   Hackathon      `json:"hackathon" gorm:"foreignKey:HackathonID"`
 	Registered  bool           `json:"registered"`
 	Accepted    bool           `json:"accepted"`
+	Score       int            `json:"score"`
 	// Messages    []*Message     `json:"messages"`
 }
 
