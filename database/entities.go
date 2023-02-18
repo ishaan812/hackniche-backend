@@ -54,7 +54,7 @@ type Participant struct {
 	College          string         `json:"college"`
 	YearOfGraduation string         `json:"year_of_graduation"`
 	Resume           string         `json:"resume"`
-	Skills           string         `json:"skills"`
+	Skills           pq.StringArray `gorm:"type:varchar(255)[]" json:"skills"`
 	Experience       string         `json:"experience"`
 	Qualfications    string         `json:"qualifications"`
 	MobileNumber     string         `json:"mobile_number"`
@@ -76,15 +76,15 @@ type Team struct {
 }
 
 type TeamsParticipant struct {
-	CreatedAt      time.Time
-	UpdatedAt      time.Time
-	ID             uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()" json:"id"`
-	DeletedAt      gorm.DeletedAt `gorm:"index" json:"-"`
-	ParticipantID  uuid.UUID      `json:"participant_id"`
-	Participant    Participant    `json:"participant" gorm:"foreignKey:ParticipantID"`
-	TeamID         uuid.UUID      `json:"team_id"`
-	Team           Team           `json:"team" gorm:"foreignKey:TeamID"`
-	TeamLeader     bool           `json:"team_leader"`
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
+	ID            uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()" json:"id"`
+	DeletedAt     gorm.DeletedAt `gorm:"index" json:"-"`
+	ParticipantID uuid.UUID      `json:"participant_id"`
+	Participant   Participant    `json:"participant" gorm:"foreignKey:ParticipantID"`
+	TeamID        uuid.UUID      `json:"team_id"`
+	Team          Team           `json:"team" gorm:"foreignKey:TeamID"`
+	TeamLeader    bool           `json:"team_leader"`
 }
 
 type HackathonTeams struct {
