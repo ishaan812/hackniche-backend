@@ -114,7 +114,11 @@ type Message struct {
 }
 
 type Announcement struct {
-	ID        uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
-	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
-	Content   string         `json:"content"`
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	ID          uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
+	DeletedAt   gorm.DeletedAt `gorm:"index" json:"-"`
+	HackathonID uuid.UUID      `json:"hackathon_id"`
+	Hackathon   Hackathon      `json:"hackathon" gorm:"foreignKey:HackathonID"`
+	Content     string         `json:"content"`
 }
