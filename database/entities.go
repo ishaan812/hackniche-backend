@@ -55,6 +55,8 @@ type Participant struct {
 	YearOfGraduation string         `json:"year_of_graduation"`
 	Resume           string         `json:"resume"`
 	Skills           pq.StringArray `gorm:"type:varchar(255)[]" json:"skills"`
+	LeetcodeURL      string         `json:"leetcode"`
+	GithubUsername   string         `json:"github"`
 	Experience       string         `json:"experience"`
 	Qualfications    string         `json:"qualifications"`
 	MobileNumber     string         `json:"mobile_number"`
@@ -109,3 +111,10 @@ type Message struct {
 	Sender    string         `json:"sender"`
 	Content   string         `json:"content"`
 }
+
+type Announcement struct {
+	ID        uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
+	Content   string         `json:"content"`
+}
+

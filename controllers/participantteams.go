@@ -108,3 +108,18 @@ func UpdateTeamsParticipantTeam(w http.ResponseWriter, r *http.Request) {
 	dbconn.Save(&participant)
 	json.NewEncoder(w).Encode(&participant)
 }
+
+func GetTeamsParticipantByTeamID(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	var participant []database.TeamsParticipant
+	err := dbconn.Where("team_id = ?", params["id"]).Find(&participant).Error
+	fmt.Println(participant)
+	if err != nil {
+		json.NewEncoder(w).Encode("Invalid ID")
+	} else {
+		json.NewEncoder(w).Encode(&participant)
+	}
+}

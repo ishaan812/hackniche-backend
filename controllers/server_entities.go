@@ -5,6 +5,7 @@ import (
 
 	"github.com/gofrs/uuid"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/lib/pq"
 )
 
 type Claims struct {
@@ -20,4 +21,17 @@ type Claims struct {
 type AddTeamToHackathonReq struct {
 	TeamID      uuid.UUID `json:"team_id"`
 	HackathonID uuid.UUID `json:"hackathon_id"`
+}
+
+type EvalReq struct {
+	HackathonDomains pq.StringArray `json:"hackathon_domains"`
+	Skills           pq.StringArray `json:"skills"`
+	Experience       int            `json:"experience"`
+	Qualifications   pq.StringArray `json:"qualifications"`
+	LeetcodeRank     uint           `json:"leetcode_username"`
+	GithubUsername   string         `json:"github_username"`
+}
+
+type EvalRes struct {
+	Score float64 `json:"score"`
 }
