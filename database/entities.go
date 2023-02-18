@@ -54,9 +54,12 @@ type Participant struct {
 	College          string         `json:"college"`
 	YearOfGraduation string         `json:"year_of_graduation"`
 	Resume           string         `json:"resume"`
-	Skills           string         `json:"skills"`
-	Experience       string         `json:"experience"`
-	Qualfications    string         `json:"qualifications"`
+	Skills           pq.StringArray `gorm:"type:varchar(255)[]" json:"skills"`
+	LeetcodeURL      string         `json:"leetcode"`
+	LeetcodeRank     int            `json:"leetcode_rank"`
+	GithubUsername   string         `json:"github"`
+	Experience       int            `json:"experience"`
+	Qualifications   pq.StringArray `gorm:"type:varchar(255)[] json:"qualifications"`
 	MobileNumber     string         `json:"mobile_number"`
 	Gender           string         `json:"gender"`
 	Type             string         `json:"type"`
@@ -76,15 +79,15 @@ type Team struct {
 }
 
 type TeamsParticipant struct {
-	CreatedAt      time.Time
-	UpdatedAt      time.Time
-	ID             uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()" json:"id"`
-	DeletedAt      gorm.DeletedAt `gorm:"index" json:"-"`
-	ParticipantID  uuid.UUID      `json:"participant_id"`
-	Participant    Participant    `json:"participant" gorm:"foreignKey:ParticipantID"`
-	TeamID         uuid.UUID      `json:"team_id"`
-	Team           Team           `json:"team" gorm:"foreignKey:TeamID"`
-	TeamLeader     bool           `json:"team_leader"`
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
+	ID            uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()" json:"id"`
+	DeletedAt     gorm.DeletedAt `gorm:"index" json:"-"`
+	ParticipantID uuid.UUID      `json:"participant_id"`
+	Participant   Participant    `json:"participant" gorm:"foreignKey:ParticipantID"`
+	TeamID        uuid.UUID      `json:"team_id"`
+	Team          Team           `json:"team" gorm:"foreignKey:TeamID"`
+	TeamLeader    bool           `json:"team_leader"`
 }
 
 type HackathonTeams struct {
@@ -98,6 +101,7 @@ type HackathonTeams struct {
 	Hackathon   Hackathon      `json:"hackathon" gorm:"foreignKey:HackathonID"`
 	Registered  bool           `json:"registered"`
 	Accepted    bool           `json:"accepted"`
+	Score       float64        `json:"score"`
 	// Messages    []*Message     `json:"messages"`
 }
 
@@ -108,4 +112,14 @@ type Message struct {
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
 	Sender    string         `json:"sender"`
 	Content   string         `json:"content"`
+}
+
+type Announcement struct {
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	ID          uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
+	DeletedAt   gorm.DeletedAt `gorm:"index" json:"-"`
+	HackathonID uuid.UUID      `json:"hackathon_id"`
+	Hackathon   Hackathon      `json:"hackathon" gorm:"foreignKey:HackathonID"`
+	Content     string         `json:"content"`
 }
