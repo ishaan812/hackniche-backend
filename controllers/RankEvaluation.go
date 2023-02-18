@@ -180,13 +180,13 @@ func LeetcodeLast30Days(username string) int {
 
 func Evaluate(EvalRequest EvalReq) EvalRes {
 	// Replace with your GitHub username and access token
-	GitScore := GithubLast30Days(EvalRequest.GithubUsername)
-	LeetcodeRank := EvalRequest.LeetcodeRank
-	ResumeScore := ResumeScore(EvalRequest.ResumeURL)
-
-	EvaluatedScore := GitScore * (1 / LeetcodeRank) * ResumeScore
+	// GitScore := GithubLast30Days(EvalRequest.GithubUsername)
+	// LeetcodeRank := EvalRequest.LeetcodeRank
+	// ResumeScore := ResumeScore(EvalRequest.ResumeURL)
+	var EvalResult EvalRes
+	// EvalRes.Score = GitScore * (1 / LeetcodeRank) * ResumeScore
 
 	// Get a list of the user's repositories
 
-	return EvalRes{}
+	return EvalResult
 }
