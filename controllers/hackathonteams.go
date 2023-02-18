@@ -91,7 +91,7 @@ func GetTeamsByHackathon(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if err != nil {
-		json.NewEncoder(w).Encode("Invalid ID")
+		json.NewEncoder(w).Encode("Invalid ID") 
 	} else {
 		json.NewEncoder(w).Encode(&hackathonteams)
 	}
