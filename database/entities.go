@@ -56,9 +56,10 @@ type Participant struct {
 	Resume           string         `json:"resume"`
 	Skills           pq.StringArray `gorm:"type:varchar(255)[]" json:"skills"`
 	LeetcodeURL      string         `json:"leetcode"`
+	LeetcodeRank     int            `json:"leetcode_rank"`
 	GithubUsername   string         `json:"github"`
-	Experience       string         `json:"experience"`
-	Qualfications    string         `json:"qualifications"`
+	Experience       int            `json:"experience"`
+	Qualifications   pq.StringArray `gorm:"type:varchar(255)[] json:"qualifications"`
 	MobileNumber     string         `json:"mobile_number"`
 	Gender           string         `json:"gender"`
 	Type             string         `json:"type"`
@@ -100,7 +101,7 @@ type HackathonTeams struct {
 	Hackathon   Hackathon      `json:"hackathon" gorm:"foreignKey:HackathonID"`
 	Registered  bool           `json:"registered"`
 	Accepted    bool           `json:"accepted"`
-	Score       int            `json:"score"`
+	Score       float64            `json:"score"`
 	// Messages    []*Message     `json:"messages"`
 }
 

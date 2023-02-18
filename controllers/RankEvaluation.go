@@ -33,7 +33,7 @@ func Evol(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var evalReq EvalReq
 	json.NewDecoder(r.Body).Decode(&evalReq)
-	evalRes := Evaluate(evalReq)
+	evalRes := RankEvaluate(evalReq)
 	json.NewEncoder(w).Encode(evalRes)
 }
 
@@ -135,7 +135,7 @@ func ResumeScore(EvalReq EvalReq) float64 {
 	return score
 }
 
-func Evaluate(EvalRequest EvalReq) EvalRes {
+func RankEvaluate(EvalRequest EvalReq) EvalRes {
 	GitScore := float64(GithubLast30Days(EvalRequest.GithubUsername))
 	LeetcodeRank := EvalRequest.LeetcodeRank
 	ResumeScore := ResumeScore(EvalRequest)

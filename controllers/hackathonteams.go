@@ -71,6 +71,25 @@ func GetTeamsByHackathon(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var hackathonteams []database.HackathonTeams
 	err := dbconn.Preload("Team").Preload("Hackathon").Where("hackathon_id = ?", params["id"]).Find(&hackathonteams).Error
+	for i := 0; i < len(hackathonteams); i++ {
+		var ParticipantTeam []database.TeamsParticipant
+		dbconn.Find(&ParticipantTeam, "team_id = ?", hackathonteams[i].Team.ID)
+		Domains := hackathonteams[i].Hackathon.Domains
+		for j := 0; j < len(ParticipantTeam); j++ {
+			var Participant database.Participant
+			dbconn.Find(&Participant, "id = ?", ParticipantTeam[j].ParticipantID)
+			EvalRequest := EvalReq{
+				HackathonDomains: Domains,
+				Skills:           Participant.Skills,
+				Experience:       float64(Participant.Experience),
+				Qualifications:   Participant.Qualifications,
+				LeetcodeRank:     float64(Participant.LeetcodeRank),
+				GithubUsername:   Participant.GithubUsername,
+			}
+			Response := RankEvaluate(EvalRequest)
+			hackathonteams[i].Score = Response.Score
+		}
+	}
 	if err != nil {
 		json.NewEncoder(w).Encode("Invalid ID")
 	} else {
