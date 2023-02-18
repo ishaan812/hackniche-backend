@@ -64,6 +64,8 @@ func InitializeRouter() {
 	r.HandleFunc("/DeleteTeamParticipant/{id}", controllers.DeleteTeamsParticipant).Methods("DELETE")
 	r.HandleFunc("/getParticipantbyTeam/{id}", controllers.GetTeamsParticipantByTeamID).Methods("GET")
 
+	r.HandleFunc("/eval", controllers.Evol).Methods("POST", "OPTIONS")
+
 	fmt.Print("Server running on localhost:9000\n")
 	serverErr := http.ListenAndServe("localhost:9000", handlers.CORS(headers, methods, origins)(r))
 	if serverErr != nil {

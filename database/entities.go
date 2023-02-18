@@ -55,6 +55,8 @@ type Participant struct {
 	YearOfGraduation string         `json:"year_of_graduation"`
 	Resume           string         `json:"resume"`
 	Skills           string         `json:"skills"`
+	LeetcodeURL      string         `json:"leetcode"`
+	GithubUsername   string         `json:"github"`
 	Experience       string         `json:"experience"`
 	Qualfications    string         `json:"qualifications"`
 	MobileNumber     string         `json:"mobile_number"`
@@ -76,15 +78,15 @@ type Team struct {
 }
 
 type TeamsParticipant struct {
-	CreatedAt      time.Time
-	UpdatedAt      time.Time
-	ID             uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()" json:"id"`
-	DeletedAt      gorm.DeletedAt `gorm:"index" json:"-"`
-	ParticipantID  uuid.UUID      `json:"participant_id"`
-	Participant    Participant    `json:"participant" gorm:"foreignKey:ParticipantID"`
-	TeamID         uuid.UUID      `json:"team_id"`
-	Team           Team           `json:"team" gorm:"foreignKey:TeamID"`
-	TeamLeader     bool           `json:"team_leader"`
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
+	ID            uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()" json:"id"`
+	DeletedAt     gorm.DeletedAt `gorm:"index" json:"-"`
+	ParticipantID uuid.UUID      `json:"participant_id"`
+	Participant   Participant    `json:"participant" gorm:"foreignKey:ParticipantID"`
+	TeamID        uuid.UUID      `json:"team_id"`
+	Team          Team           `json:"team" gorm:"foreignKey:TeamID"`
+	TeamLeader    bool           `json:"team_leader"`
 }
 
 type HackathonTeams struct {
@@ -109,3 +111,10 @@ type Message struct {
 	Sender    string         `json:"sender"`
 	Content   string         `json:"content"`
 }
+
+type Announcement struct {
+	ID        uuid.UUID      `gorm:"primarykey;type:uuid;default:uuid_generate_v4()"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
+	Content   string         `json:"content"`
+}
+
